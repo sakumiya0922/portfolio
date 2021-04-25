@@ -1,46 +1,47 @@
-import React, {Component} from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import Title from './Title';
 
-class Introduction extends Component{
+const Introduction = () => {
+    const [title, setTitle] = useState("略歴")
+    const [isDark, setIsDark] = useState(false)
+    const [content, setContent] = useState([
+        { label: "年齢", text: "26歳(1994年生まれ)" },
+        { label: "出身地", text: "宮崎県" },
+        { label: "最終学歴", text: "宮崎大学大学院工学研究科" },
+        { label: "趣味", text: "料理、釣り、晩酌" },
+        { label: "イベント", text: "2020年　婚約しました！！" },
+    ])
 
-    Style1 = {
-        fontSize:"20px",
-        padding:"5px 10px",
-        backgroundColor:"red",
-        textAlign:'left',
-        marginTop:'0px',
-        borderRadius:'30px'
+    useEffect(() => {
+        if (isDark === false) {
+            setContent(content.slice(0, 5))
+        }
+        else {
+            setContent([
+                ...content,
+                { label: "隠し事", text: "" }
+            ])
+        }
+    }, [isDark])
+
+    const contentStyle = {
+        fontSize: "20px",
+        textAlign: 'left',
+    }
+    const OrganizeRightInputSpaceText = (text, num) => {
+        return (text + "　　　　　　　　　　　　　　　").slice(0, num)
     }
 
-    Style2 = {
-        fontSize:"20px",
-        textAlign:'left',
-    }
-
-    constructor(props){
-        super(props);
-        this.state = {
-            text1:'略歴',
-            text2:'年齢　　：26歳(1994年生まれ)',
-            text3:'出身地　：宮崎県',
-            text4:'最終学歴：宮崎大学大学院工学研究科',
-            text5:'趣味　　：料理、釣り、晩酌',
-            text6:'イベント：2020年　婚約しました！！',
-        };
-    }
-
-    render(){
-        return(
-            <div>
-                <p style={this.Style1}>{this.state.text1}</p>
-                <li style={this.Style2}>{this.state.text2}</li>
-                <li style={this.Style2}>{this.state.text3}</li>
-                <li style={this.Style2}>{this.state.text4}</li>
-                <li style={this.Style2}>{this.state.text5}</li>
-                <li style={this.Style2}>{this.state.text6}</li>
-
-            </div>
-        )
-    }
+    return (
+        <div>
+            <Title onClick={() => setIsDark(!isDark)} title={title} />
+            {content.map(
+                item => {
+                    return <li style={contentStyle}>{`${OrganizeRightInputSpaceText(item.label, 5)} :　${item.text}`}</li >
+                }
+            )}
+        </div>
+    )
 }
 
 export default Introduction;
