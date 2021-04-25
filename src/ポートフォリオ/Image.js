@@ -16,20 +16,5 @@ const Image = (props) => {
         </div>
     );
 
-
-
-    // class Image extends Component{
-    // const imageStyle = {
-    //     border: "1px",
-    //     width: "100%",
-    // }
-    //     render(){
-    //         return(
-    //             <div>
-    //                 <img width="100%" border="1" src={profileImage} style={this.style}/>
-    //             </div>
-    //         );
-    //     }
-    // }
 }
 export default Image;
